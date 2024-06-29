@@ -7,6 +7,10 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         int opcao = 0;
         double valor = 0;
+        String moeda = "";
+        double valorConvertido = 0;
+        double valorMoeda = 0;
+
         Scanner scanner = new Scanner(System.in);
 
         while (opcao != 7) {
@@ -23,6 +27,8 @@ public class Main {
                     "\n" + "*".repeat(55));
             opcao = scanner.nextInt();
 
+            moeda = BuscaIdMoeda.buscaIdMoeda(opcao);
+
             System.out.println("Digite o valor que deseja converter: ");
             valor = scanner.nextDouble();
 
@@ -30,9 +36,12 @@ public class Main {
             String requisicao = requisicaoAPI.conexaoCliente("USD");
 
             ConverteDjson converteDjson = new ConverteDjson();
-            valor = converteDjson.getDadosMoedas(requisicao, "USD");
+            valorMoeda = converteDjson.getDadosMoedas(requisicao, moeda);
 
-            System.out.println(valor);
+            valorConvertido = CalculaConversao.calcula(valor, valorMoeda);
+
+            System.out.println("O valor convertido é: " + valorConvertido + " " + moeda);
+
         }
     }
 }
