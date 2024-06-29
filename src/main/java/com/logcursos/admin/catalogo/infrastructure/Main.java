@@ -27,7 +27,12 @@ public class Main {
             valor = scanner.nextDouble();
 
             RequisicaoAPI requisicaoAPI = new RequisicaoAPI();
-            System.out.println(requisicaoAPI.conexaoCliente("USD"));
+            String requisicao = requisicaoAPI.conexaoCliente("USD");
+
+            ConverteDjson converteDjson = new ConverteDjson();
+            valor = converteDjson.getDadosMoedas(requisicao, "USD");
+
+            System.out.println(valor);
         }
     }
 }
